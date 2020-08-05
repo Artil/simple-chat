@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="ChatDesktop.Views.Base.GroupCreateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:transfer="clr-namespace:ChatDesktop.Resources.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lang="clr-namespace:ChatDesktop.Resources.Lang"
+             xmlns:local="clr-namespace:ChatDesktop.Views.Base"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Expander Foreground="White" IsExpanded="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanInverter}}" Background="Transparent" Grid.Row="0" HorizontalAlignment="Stretch" Header="{lang:Loc ChatSettings}">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="24,8,24,16">
+                <Grid>
+                    <transfer:UserImage ImageHeight="100" ImageWidth="100" PhotoPath="{Binding PhotoPath}" FontSize="70" FillColor="{Binding Color}" ShortName="{Binding ShortName}" ShortNameMargin="-5,0,0,10" />
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource UserLink}" HorizontalAlignment="Center" Margin="150,85,0,0" Text="{lang:Loc Change}" FontSize="14" Foreground="#5DA8FE">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Gesture="LeftClick" Command="{Binding ChangeImageCommand}" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </Grid>
+                <WrapPanel Margin="0,30,0,0">
+                    <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc ChatName}" />
+                    <TextBox Style="{StaticResource DarkTextBox}" Text="{Binding ChatName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </WrapPanel>
+
+                <WrapPanel Margin="0,15,0,0">
+                    <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc IsPublic}" />
+                    <ToggleButton Style="{StaticResource ToggleButton}" IsChecked="{Binding IsPublic}" />
+                </WrapPanel>
+
+                <WrapPanel Margin="0,15,0,0">
+                    <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc CreatorMode}" />
+                    <ToggleButton Style="{StaticResource ToggleButton}" IsChecked="{Binding CreatorMode}" />
+                </WrapPanel>
+                <Button Grid.Row="1" VerticalAlignment="Bottom" Background="#27ADF7" HorizontalAlignment="Right" Command="{Binding CreateGroupCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionLightButton}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ChatId}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <materialDesign:PackIcon Foreground="White" Kind="CommentNextOutline" Height="24" Width="24" />
+                </Button>
+                <materialDesign:PopupBox Background="#5DA8FE" PopupMode="Click" PlacementMode="LeftAndAlignMiddles" UnfurlOrientation="Horizontal" Margin="0,20,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <materialDesign:PopupBox.Style>
+                        <Style TargetType="materialDesign:PopupBox" BasedOn="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
+                            <Setter Property="Visibility" Value ="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ChatId}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PopupBox.Style>
+                    
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Height="25" Width="25" Foreground="White" Kind="PencilAdd" />
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel Orientation="Horizontal">
+                        <Button ToolTip="Save" Background="#5DA8FE" Command="{Binding UpdateGroupCommand}">
+                            <materialDesign:PackIcon Foreground="White" Height="20" Width="20" Kind="ContentSaveEdit" />
+                        </Button>
+                        <Button ToolTip="Remove changes" Background="#5DA8FE" Command="{Binding RemoveGroupCommand}">
+                            <materialDesign:PackIcon Foreground="White" Height="20" Width="20" Kind="TrashCan" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Expander>
+        <Expander Grid.Row="2" VerticalContentAlignment="Stretch" IsExpanded="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Foreground="White" Margin="0,5,0,0" HorizontalAlignment="Stretch" Header="{lang:Loc AddUsers}" ExpandDirection="Up">
+            <transfer:Transfer ListSource="{Binding DataContext.AvaibleUserList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedSource="{Binding DataContext.UserList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" >
+                <transfer:Transfer.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                        <materialDesign:PackIcon Foreground="{Binding Color}" Kind="User" />
+                        <TextBlock Margin="5,0,0,0" Foreground="White" Text="{Binding Name}" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </transfer:Transfer.ItemTemplate>
+            </transfer:Transfer>
+        </Expander>
+    </Grid>
+</UserControl>

@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bvm="clr-namespace:ChatDesktop.ViewModels.BaseWindow"
+                    xmlns:avm="clr-namespace:ChatDesktop.ViewModels.Authorization"
+                    xmlns:svm="clr-namespace:ChatDesktop.ViewModels.SlideMenu"
+                    xmlns:dvm="clr-namespace:ChatDesktop.ViewModels.Dialogs"
+                    xmlns:base="clr-namespace:ChatDesktop.ViewModels.Base"
+                    xmlns:views="clr-namespace:ChatDesktop.Views.BaseWindow"
+                    xmlns:aviews="clr-namespace:ChatDesktop.Views.Authorization"
+                    xmlns:baseviews="clr-namespace:ChatDesktop.Views.Base"
+                    xmlns:slviews="clr-namespace:ChatDesktop.Views.SlideMenu"
+                    xmlns:dialogviews="clr-namespace:ChatDesktop.Views.Dialogs">
+
+    <!--Authorize-->
+    <DataTemplate DataType="{x:Type bvm:AuthorizeVM}">
+        <views:AuthorizeWindow />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type avm:LoginVM}">
+        <aviews:Login />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type avm:RegisterVM}">
+        <aviews:Register />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type avm:ForgotPassword}">
+        <aviews:ForgotPassword />
+    </DataTemplate>
+
+    <!--MainWindow-->
+    <DataTemplate DataType="{x:Type bvm:MainVM}">
+        <views:MainWindow />
+    </DataTemplate>
+
+    <!--BaseView-->
+    <DataTemplate DataType="{x:Type base:ChatVM}">
+        <baseviews:ChatView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type base:UserVM}">
+        <baseviews:UserView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type base:GroupCreateVM}">
+        <baseviews:GroupCreateView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type base:AppSettingsVM}">
+        <baseviews:AppSettingsView />
+    </DataTemplate>
+
+        <!--SlideMenu-->
+    <DataTemplate DataType="{x:Type svm:SlideMenuVM}">
+        <slviews:SlideMenu />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type svm:AddUserVM}">
+        <slviews:AddUser />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type svm:ChatListVM}">
+        <slviews:ChatList />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type svm:ContactsVM}">
+        <slviews:Contacts />
+    </DataTemplate>
+
+    <!--Dialogs-->
+    <DataTemplate DataType="{x:Type dvm:BaseDialogVM}">
+        <dialogviews:Dialog />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dvm:RemoveMessageDialogVM}">
+        <dialogviews:RemoveMessageDialog />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type dvm:ForwardMessageDialogVM}">
+        <dialogviews:ForwardMessageDialog />
+    </DataTemplate>
+
+
+    <!--<DataTemplate DataType="{x:Type nvm:NotifyMessage}">
+        <notviews:MessageNotification />
+    </DataTemplate>-->
+
+</ResourceDictionary>

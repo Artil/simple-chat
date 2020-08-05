@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ChatDesktop.Views.Authorization.Register"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lang="clr-namespace:ChatDesktop.Resources.Lang"
+             xmlns:vm="clr-namespace:ChatDesktop.ViewModels"
+             xmlns:views="clr-namespace:ChatDesktop.Views"
+             xmlns:helper="clr-namespace:ChatDesktop.Helpers"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" >
+
+    <Grid>
+        <StackPanel Margin="30,25,30,30" >
+            <Image RenderOptions.BitmapScalingMode="HighQuality" Source="../../Resources/img/login_logo.png" Height="35" Width="35" />
+            <TextBox materialDesign:HintAssist.Hint="{lang:Loc Name}" 
+                     Style="{StaticResource AuthTextBox}" 
+                     Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+            <TextBox materialDesign:HintAssist.Hint="{lang:Loc Email}" 
+                     Style="{StaticResource AuthTextBox}" 
+                     Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+            <PasswordBox materialDesign:HintAssist.Hint="{lang:Loc Password}" 
+                         Style="{StaticResource AuthPasswordBox}" 
+                         helper:PasswordHelper.Attach="True" 
+                         helper:PasswordHelper.Password="{Binding Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+            <PasswordBox materialDesign:HintAssist.Hint="{lang:Loc ConfirmPassword}" 
+                         Style="{StaticResource AuthPasswordBox}"   
+                         helper:PasswordHelper.Attach="True" 
+                         helper:PasswordHelper.Password="{Binding ConfirmPassword, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+
+            <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0" Text="{Binding ErrorText}" Foreground="Red" TextWrapping="Wrap" />
+            <WrapPanel HorizontalAlignment="Center" Margin="8">
+                <Button Style="{StaticResource AuthButton}" 
+                        Content="{lang:Loc Register}" 
+                        Command="{Binding RegisterCommand}" 
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

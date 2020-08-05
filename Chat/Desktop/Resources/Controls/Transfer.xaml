@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ChatDesktop.Resources.Controls.Transfer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChatDesktop.Resources.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#303030" CornerRadius="5" Padding="5">
+            <ListView x:Name="AvaibleList" Foreground="White" ItemTemplate="{Binding ItemTemplate, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectionMode="Multiple" ItemsSource="{Binding ListSource, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                <ListView.Resources>
+                    <ResourceDictionary Source="..\..\Resources\ScrollBarResource.xaml"/>
+                </ListView.Resources>
+            </ListView>
+        </Border>
+
+        <StackPanel VerticalAlignment="Center" Grid.Column="1" Margin="5">
+            <Button Background="Transparent" Command="{Binding AddItemsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                <materialDesign:PackIcon Foreground="White" Height="25" Width="25" Kind="ChevronRight" />
+            </Button>
+            <Button Background="Transparent" Margin="0,5,0,0" Command="{Binding RemoveItemsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                <materialDesign:PackIcon Foreground="White" Height="25" Width="25" Kind="ChevronLeft" />
+            </Button>
+        </StackPanel>
+
+        <Border Grid.Column="2" Background="#303030" CornerRadius="5" Padding="5">
+            <ListView x:Name="ReturnList" Foreground="White" ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectionMode="Multiple" ItemsSource="{Binding SelectedSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                <ListView.Resources>
+                    <ResourceDictionary Source="..\..\Resources\ScrollBarResource.xaml"/>
+                </ListView.Resources>
+            </ListView>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,236 @@
+﻿<UserControl x:Class="ChatDesktop.Views.Base.UserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lang="clr-namespace:ChatDesktop.Resources.Lang"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChatDesktop.Views.Base"
+             xmlns:control="clr-namespace:ChatDesktop.Resources.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <materialDesign:Flipper x:Name="Flipper" Style="{StaticResource MaterialDesignCardFlipper}">
+            <materialDesign:Flipper.Resources>
+                <Style TargetType="materialDesign:Card">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Style>
+            </materialDesign:Flipper.Resources>
+            <materialDesign:Flipper.FrontContent>
+                <StackPanel Background="#FF1F2020">
+                    <control:UserImage ImageHeight="100" ImageWidth="100" PhotoPath="{Binding User.PhotoPath}" FontSize="70" FillColor="{Binding User.Color}" ShortName="{Binding User.ShortName}" ShortNameMargin="0,0,0,12" />
+
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,90,0">
+                            <DockPanel Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc UserName}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Name}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Phone}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Phone}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Name}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.FirstName}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Country}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Country}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Job}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Job}" />
+                            </DockPanel>
+
+                            <WrapPanel Margin="0,30,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Birthday}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Birthday}" />
+                            </WrapPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+
+                            <DockPanel Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Email}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Email}"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27" >
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Status}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Status}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc LastName}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.LastName}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc City}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.City}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Company}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.Company}" />
+                            </DockPanel>
+
+                            <DockPanel Margin="0,20,0,0" Height="27">
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc PostAddress}" />
+                                <TextBlock Style="{StaticResource DarkTextBlock}" Text="{Binding User.PostAddress}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </materialDesign:Flipper.FrontContent>
+            <materialDesign:Flipper.BackContent>
+                <StackPanel>
+                    <Grid>
+                        <control:UserImage ImageHeight="100" ImageWidth="100" PhotoPath="{Binding User.PhotoPath}" FontSize="70" FillColor="{Binding User.Color}" ShortName="{Binding User.ShortName}" ShortNameMargin="0,0,0,12" />
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource UserLink}" HorizontalAlignment="Center" Margin="150,85,0,0" Text="{lang:Loc Change}" FontSize="14" Foreground="#5DA8FE">
+                            <TextBlock.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding ChangeImageCommand}" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+                    </Grid>
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,90,0">
+                        <DockPanel Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc UserName}" />
+                            <TextBox Text="{Binding User.Name}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Phone}" />
+                            <TextBox Text="{Binding User.Phone}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Name}" />
+                            <TextBox Text="{Binding User.FirstName}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Country}" />
+                            <TextBox Text="{Binding User.Country}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Job}" />
+                            <TextBox Text="{Binding User.Job}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <WrapPanel Margin="0,10,0,0">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Birthday}" />
+                            <DatePicker Width="100" FontSize="14" Text="{Binding User.Birthday}" Style="{StaticResource DarkDatePicker}" />
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+
+                        <DockPanel Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Email}" />
+                            <TextBox Text="{Binding User.Email}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27" >
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Status}" />
+                            <TextBox Text="{Binding User.Status}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc LastName}" />
+                            <TextBox Text="{Binding User.LastName}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc City}" />
+                            <TextBox Text="{Binding User.City}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc Company}" />
+                            <TextBox Text="{Binding User.Company}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+
+                        <DockPanel Margin="0,20,0,0" Height="27">
+                            <TextBlock Style="{StaticResource DarkTextBlock}" Text="{lang:Loc PostAddress}" />
+                            <TextBox Text="{Binding User.PostAddress}" Style="{StaticResource DarkTextBox}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+                    <TextBlock Margin="0,20,0,0" HorizontalAlignment="Left"  Style="{StaticResource UserLink}" Text="{lang:Loc ChangePassword}" FontSize="14" Foreground="#5DA8FE">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Gesture="LeftClick" Command="{Binding ChangePasswordCommand}" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </StackPanel>
+    </materialDesign:Flipper.BackContent>
+        </materialDesign:Flipper>
+
+        <materialDesign:PopupBox Background="#5DA8FE" PopupMode="Click" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}" Visibility="{Binding CanChange, Converter={StaticResource BooleanToVisibilityConverter}}" PlacementMode="LeftAndAlignMiddles" UnfurlOrientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <materialDesign:PopupBox.ToggleContent>
+                <materialDesign:PackIcon Height="25" Width="25" Foreground="White" Kind="PencilAdd" />
+            </materialDesign:PopupBox.ToggleContent>
+            <StackPanel Orientation="Horizontal">
+                <Button ToolTip="Save" Background="#5DA8FE" Command="{Binding SaveChangesCommand}">
+                    <materialDesign:PackIcon Foreground="White" Height="20" Width="20" Kind="ContentSaveEdit" />
+                </Button>
+                <Button ToolTip="Remove changes" Background="#5DA8FE" Command="{Binding RemoveChangesCommand}">
+                    <materialDesign:PackIcon Foreground="White" Height="20" Width="20" Kind="TrashCan" />
+                </Button>
+                <Button Background="#5DA8FE" Command="{Binding LockCommand}" CommandParameter="{Binding ElementName=Flipper}">
+                    <materialDesign:PackIcon Foreground="White" Height="20" Width="20">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="Lock" />
+                                <Setter Property="ToolTip" Value="Lock" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLocked}" Value="False">
+                                        <Setter Property="Kind" Value="LockOpenVariant" />
+                                        <Setter Property="ToolTip" Value="Unlock" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </materialDesign:PopupBox>
+    </StackPanel>
+</UserControl>
+

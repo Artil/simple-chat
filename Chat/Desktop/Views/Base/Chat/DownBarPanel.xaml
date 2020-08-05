@@ -1,0 +1,234 @@
+﻿<UserControl x:Class="ChatDesktop.Views.Base.Chat.DownBarPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lang="clr-namespace:ChatDesktop.Resources.Lang"
+             xmlns:helper="clr-namespace:ChatDesktop.Helpers"
+             xmlns:local="clr-namespace:ChatDesktop.Views.Base.Chat"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <materialDesign:ColorZone Grid.Row="2" Padding="5,5,2,5" Margin="3" CornerRadius="5" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <materialDesign:PopupBox Grid.Column="0" Margin="0,0,10,5" VerticalAlignment="Bottom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" materialDesign:RippleAssist.Feedback="Transparent" PopupVerticalOffset="25" PopupHorizontalOffset="5" PlacementMode="TopAndAlignLeftEdges" StaysOpen="True">
+                    <materialDesign:PopupBox.Style>
+                        <Style TargetType="materialDesign:PopupBox">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FileContent}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsUpdateMessage}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PopupBox.Style>
+                    <materialDesign:PopupBox.ToggleContent>
+                        <Button ClickMode="Hover" Background="{StaticResource MaterialDesignTextFieldBoxBackground}" Style="{StaticResource MaterialDesignIconButton}">
+                            <materialDesign:PackIcon Foreground="Black" Height="20" Width="20" Kind="Paperclip" Opacity=".7" />
+                        </Button>
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel>
+                        <Button VerticalContentAlignment="Center" Height="30" Command="{Binding DataContext.AttachFileCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                            <Button.Content>
+                                <WrapPanel>
+                                    <materialDesign:PackIcon Height="20" Width="20" Margin="0,-2,0,0" Kind="File" Opacity=".7" />
+                                    <TextBlock Text="{lang:Loc File}" />
+                                </WrapPanel>
+                            </Button.Content>
+                            <Button.CommandParameter>
+                                <System:Boolean>False</System:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button VerticalContentAlignment="Center" Height="30" Command="{Binding DataContext.AttachFileCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                            <Button.Content>
+                                <WrapPanel VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Height="20" Margin="0,-2,0,0" Width="20" Kind="Image" Opacity=".7" />
+                                    <TextBlock Text="{lang:Loc Image}" />
+                                </WrapPanel>
+                            </Button.Content>
+                            <Button.CommandParameter>
+                                <System:Boolean>True</System:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <!--FileIcon-->
+                <WrapPanel>
+                    <materialDesign:PackIcon Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0" Kind="FileUpload" ToolTip="{Binding FileContent.FileFullName}" Height="40" Width="40">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="#323232" />
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding FileContent}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                        <materialDesign:PackIcon.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Remove" Command="{Binding RemoveAttachedFileCommand}">
+                                    <MenuItem.Icon>
+                                        <Grid Height="17" Width="20">
+                                            <materialDesign:PackIcon VerticalAlignment="Center" Height="20" Width="20" Kind="FileRemoveOutline" />
+                                        </Grid>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </materialDesign:PackIcon.ContextMenu>
+                    </materialDesign:PackIcon>
+                    <TextBlock VerticalAlignment="Center" FontSize="14" Text="{Binding FileContent.FileFullName}" />
+                </WrapPanel>
+
+                <Button Grid.Column="0" 
+                        Visibility="{Binding IsUpdateMessage, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                        Style="{StaticResource ChatBottomBarButton}" 
+                        Background="{StaticResource MaterialDesignTextFieldBoxBackground}"
+                        Command="{Binding CancelUpdateMessageCommand}">
+                    <materialDesign:PackIcon Height="30" Width="30" Kind="Clear" Opacity=".7" />
+                </Button>
+
+                <TextBox Grid.Column="1" Background="Transparent" FontSize="14" AllowDrop="True" helper:FileDragDropHelper.IsFileDragDropEnabled="True" helper:FileDragDropHelper.FileDragDropTarget="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"  BorderBrush="{x:Null}" VerticalScrollBarVisibility="Hidden" MinHeight="45" MaxHeight="100" BorderThickness="0" AcceptsTab="True" SpellCheck.IsEnabled="True"  AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="{lang:Loc TypeMessage}" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBoxBase}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FileContent}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Button Grid.Column="2" Command="{Binding SendMessageCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ChatBottomBarButton}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSendAvaible}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsUpdateMessage}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.ToolTip>
+                        <ToolTip Placement="Top" Margin="5">
+                            <TextBlock Text="Send message" />
+                        </ToolTip>
+                    </Button.ToolTip>
+                    <materialDesign:PackIcon Height="20" Width="20" Kind="SendOutline" Opacity=".7" />
+                </Button>
+                <Button Grid.Column="2" Visibility="{Binding IsUpdateMessage, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource ChatBottomBarButton}" Command="{Binding UpdateMessageCommand}">
+                    <Button.ToolTip>
+                        <ToolTip Placement="Top" Margin="5">
+                            <TextBlock Text="Update message" />
+                        </ToolTip>
+                    </Button.ToolTip>
+                    <materialDesign:PackIcon Height="20" Width="20" Kind="SendOutline" Opacity=".7" RenderTransformOrigin="0.5,0.5">
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-92"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Grid.Column="2" Command="{Binding CaptureVoiceCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ChatBottomBarButton}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSendAvaible}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsVideoCapture}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.ToolTip>
+                        <ToolTip Placement="Top" Margin="5">
+                            <TextBlock Text="Send voice message" />
+                        </ToolTip>
+                    </Button.ToolTip>
+                    <materialDesign:PackIcon Height="20" Width="20" Opacity=".7">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="Microphone" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsCapture}" Value="True">
+                                        <Setter Property="Kind" Value="MicrophoneOff" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Grid.Column="2" Command="{Binding CaptureVideoCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ChatBottomBarButton}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSendAvaible}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsVideoCapture}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.ToolTip>
+                        <ToolTip Placement="Top" Margin="5">
+                            <TextBlock Text="Send video message" />
+                        </ToolTip>
+                    </Button.ToolTip>
+                    <materialDesign:PackIcon Height="20" Width="20" Opacity=".7">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="Video" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsCapture}" Value="True">
+                                        <Setter Property="Kind" Value="VideocamOff" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                </Button>
+                <ToggleButton Grid.Column="3" IsChecked="{Binding IsVideoCapture}" Visibility="{Binding IsSendAvaible, Converter={StaticResource BooleanToVisibilityInverter}}" Style="{StaticResource ToggleButton}">
+                    <ToggleButton.LayoutTransform>
+                        <RotateTransform Angle="-90" />
+                    </ToggleButton.LayoutTransform>
+                    <materialDesign:PackIcon Kind="Video" >
+                        <materialDesign:PackIcon.LayoutTransform>
+                            <RotateTransform Angle="-270" />
+                        </materialDesign:PackIcon.LayoutTransform>
+                    </materialDesign:PackIcon>
+                </ToggleButton>
+            </Grid>
+        </materialDesign:ColorZone>
+    </Grid>
+</UserControl>

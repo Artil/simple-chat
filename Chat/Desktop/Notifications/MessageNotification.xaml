@@ -1,0 +1,35 @@
+﻿<core:NotificationDisplayPart x:Class="ChatDesktop.Notifications.MessageNotification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:core="clr-namespace:ToastNotifications.Core;assembly=ToastNotifications"
+                              xmlns:control="clr-namespace:ChatDesktop.Resources.Controls"
+                              Padding="5"
+             mc:Ignorable="d">
+
+    <core:NotificationDisplayPart.Background>
+        <SolidColorBrush Opacity="0.9" Color="#2C99EC"/>
+    </core:NotificationDisplayPart.Background>
+
+    <WrapPanel VerticalAlignment="Center">
+        <control:UserImage ImageHeight="40" ImageWidth="40" PhotoPath="{Binding PhotoPath}" FontSize="25" FillColor="{Binding Color}" ShortName="{Binding ShortName}" ShortNameMargin="0,0,0,3" />
+
+        <Grid Margin="5,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+            <TextBlock FontWeight="Bold" Foreground="White" Visibility="{Binding IsChatForTwo, Converter={StaticResource BooleanToVisibilityInverter}}">
+                <Run Text="Chat:" />
+                <Run Text="{Binding Title}" />
+            </TextBlock>
+            <TextBlock Foreground="White" Grid.Row="1" TextWrapping="Wrap">
+                <Run Text="From:" />
+                <Run Text="{Binding User}" />
+            </TextBlock>
+            <TextBlock Text="{Binding Message}" Foreground="White" Grid.Row="2" TextWrapping="Wrap" />
+        </Grid>
+    </WrapPanel>
+</core:NotificationDisplayPart>
